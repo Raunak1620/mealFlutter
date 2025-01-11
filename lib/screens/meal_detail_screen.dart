@@ -13,7 +13,9 @@ class MealDetailScreen extends StatelessWidget {
       margin: EdgeInsets.symmetric(vertical: 10),
       child: Text(
         text,
-        style: Theme.of(context).textTheme.title,
+        style: Theme.of(context)
+            .textTheme
+            .bodyLarge, // Use 'bodyLarge' instead of 'bodyText1'
       ),
     );
   }
@@ -35,7 +37,16 @@ class MealDetailScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final mealId = ModalRoute.of(context).settings.arguments as String;
+    final mealId = ModalRoute.of(context)?.settings.arguments
+        as String?; // Null check added
+    if (mealId == null) {
+      return Scaffold(
+        body: Center(
+          child: Text('No meal data available'),
+        ),
+      );
+    }
+
     final selectedMeal = DUMMY_MEALS.firstWhere((meal) => meal.id == mealId);
     return Scaffold(
       appBar: AppBar(
@@ -56,7 +67,9 @@ class MealDetailScreen extends StatelessWidget {
             buildContainer(
               ListView.builder(
                 itemBuilder: (ctx, index) => Card(
-                  color: Theme.of(context).accentColor,
+                  color: Theme.of(context)
+                      .colorScheme
+                      .secondary, // Use 'colorScheme.secondary' instead of 'accentColor'
                   child: Padding(
                     padding: EdgeInsets.symmetric(vertical: 5, horizontal: 10),
                     child: Text(selectedMeal.ingredients[index]),

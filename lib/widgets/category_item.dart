@@ -25,14 +25,21 @@ class CategoryItem extends StatelessWidget {
         padding: const EdgeInsets.all(15),
         child: Text(
           title,
-          style: Theme.of(context).textTheme.title,
+          style: TextStyle(
+            fontSize: 20, // Custom font size
+            fontWeight: FontWeight.bold, // Custom weight
+            color: Colors
+                .white, // Use custom color or use Theme.of(context).textTheme.bodyText1?.color
+          ),
         ),
         decoration: BoxDecoration(
-            gradient: LinearGradient(
-                colors: [color.withOpacity(0.7), color],
-                begin: Alignment.topLeft,
-                end: Alignment.bottomRight),
-            borderRadius: BorderRadius.circular(15)),
+          gradient: LinearGradient(
+            colors: [color.withOpacity(0.7), color],
+            begin: Alignment.topLeft,
+            end: Alignment.bottomRight,
+          ),
+          borderRadius: BorderRadius.circular(15),
+        ),
       ),
     );
   }

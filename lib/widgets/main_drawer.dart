@@ -2,7 +2,9 @@ import 'package:flutter/material.dart';
 import '../screens/filters_screen.dart';
 
 class MainDrawer extends StatelessWidget {
-  Widget buildListTile(String title, IconData icon, Function tapHandler) {
+  // Updated the tapHandler parameter type to match the expected void Function() type
+  Widget buildListTile(
+      String title, IconData icon, void Function()? tapHandler) {
     return ListTile(
       leading: Icon(
         icon,
@@ -29,12 +31,14 @@ class MainDrawer extends StatelessWidget {
             width: double.infinity,
             padding: EdgeInsets.all(20),
             alignment: Alignment.centerLeft,
-            color: Theme.of(context).accentColor,
+            // Replaced accentColor with colorScheme.secondary
+            color: Theme.of(context).colorScheme.secondary,
             child: Text(
               'Cooking Up!!',
               style: TextStyle(
                 fontWeight: FontWeight.w900,
                 fontSize: 30,
+                // Using primaryColor for text color
                 color: Theme.of(context).primaryColor,
               ),
             ),
