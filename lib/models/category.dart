@@ -5,6 +5,10 @@ class Category {
   final String title;
   final Color color;
 
-  const Category(
-      {@required this.id, @required this.title, @required this.color});
+  // Use `required` instead of `@required`
+  const Category({
+    required this.id,
+    required this.title,
+    required this.color,
+  });
 }

@@ -32,16 +32,16 @@ class _MyAppState extends State<MyApp> {
     setState(() {
       _filters = filterdata;
       _availableMeals = DUMMY_MEALS.where((meal) {
-        if (_filters['gluten'] && !meal.isGlutenFree) {
+        if ((_filters['gluten'] ?? false) && !meal.isGlutenFree) {
           return false;
         }
-        if (_filters['lactose'] && !meal.isLactoseFree) {
+        if ((_filters['lactose'] ?? false) && !meal.isLactoseFree) {
           return false;
         }
-        if (_filters['vegan'] && !meal.isVegan) {
+        if ((_filters['vegan'] ?? false) && !meal.isVegan) {
           return false;
         }
-        if (_filters['vegetarian'] && !meal.isVegetarian) {
+        if ((_filters['vegetarian'] ?? false) && !meal.isVegetarian) {
           return false;
         }
         return true;
@@ -74,20 +74,18 @@ class _MyAppState extends State<MyApp> {
       title: 'Meals',
       theme: ThemeData(
         primarySwatch: Colors.pink,
-        accentColor: Colors.amber,
+        colorScheme: ColorScheme.fromSwatch().copyWith(secondary: Colors.amber),
         canvasColor: Color.fromRGBO(255, 254, 229, 1),
         fontFamily: 'Raleway',
         textTheme: ThemeData.light().textTheme.copyWith(
-              // ignore: deprecated_member_use
-              body1: TextStyle(
+              bodyLarge: TextStyle(
                 color: Color.fromRGBO(20, 51, 51, 1),
               ),
-              // ignore: deprecated_member_use
-              body2: TextStyle(
+              bodyMedium: TextStyle(
                 color: Color.fromRGBO(20, 51, 51, 1),
               ),
-              // ignore: deprecated_member_use
-              title: TextStyle(
+              titleLarge: TextStyle(
+                // Replaced headline6 with titleLarge
                 fontSize: 20,
                 fontFamily: 'RobotoCondensed',
                 fontWeight: FontWeight.bold,
@@ -95,7 +93,6 @@ class _MyAppState extends State<MyApp> {
             ),
       ),
       initialRoute: '/',
-      // home: CategoriesScreen(),
       routes: {
         '/': (ctx) => TabsScreen(_favoriteMeals),
         CategoryMealsScreen.routeName: (ctx) =>
@@ -125,7 +122,7 @@ class _MyHomePageState extends State<MyHomePage> {
       ),
       body: Center(
         child: Text('Navigation Time'),
-      ), // This trailing comma makes auto-formatting nicer for build methods.
+      ),
     );
   }
 }

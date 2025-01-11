@@ -20,14 +20,16 @@ class _FiltersScreenState extends State<FiltersScreen> {
 
   @override
   initState() {
-    _glutenFree = widget.currentFilters['gluten'];
-    _lactoseFree = widget.currentFilters['lactose'];
-    _vegan = widget.currentFilters['vegan'];
-    _vegetarian = widget.currentFilters['vegetarian'];
+    super.initState();
+    // Handle nullable bool? values by providing a default (false)
+    _glutenFree = widget.currentFilters['gluten'] ?? false;
+    _lactoseFree = widget.currentFilters['lactose'] ?? false;
+    _vegan = widget.currentFilters['vegan'] ?? false;
+    _vegetarian = widget.currentFilters['vegetarian'] ?? false;
   }
 
   Widget _buildSwitchListTile(String title, String description,
-      bool currentValue, Function updatedValue) {
+      bool currentValue, Function(bool) updatedValue) {
     return SwitchListTile(
       title: Text(title),
       value: currentValue,
@@ -60,8 +62,14 @@ class _FiltersScreenState extends State<FiltersScreen> {
         children: [
           Container(
             padding: EdgeInsets.all(20),
-            child: Text('Adjust Meals Selection',
-                style: Theme.of(context).textTheme.title),
+            child: Text(
+              'Adjust Meals Selection',
+              style: TextStyle(
+                fontSize: 18, // Choose the appropriate font size
+                fontWeight: FontWeight.bold, // Choose your desired font weight
+                color: Colors.black, // Choose your desired color
+              ),
+            ),
           ),
           Expanded(
             child: ListView(

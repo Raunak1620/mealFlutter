@@ -7,16 +7,21 @@ import '../models/meal.dart';
 class TabsScreen extends StatefulWidget {
   final List<Meal> favoriteMeals;
   TabsScreen(this.favoriteMeals);
+
   @override
   _TabsScreenState createState() => _TabsScreenState();
 }
 
 class _TabsScreenState extends State<TabsScreen> {
-  List<Map<String, Object>> _pages;
+  // Initialize _pages as an empty list initially to avoid nullability issues
+  List<Map<String, Object>> _pages = [];
 
   int _selectedPageIndex = 0;
+
   @override
-  initState() {
+  void initState() {
+    super.initState();
+    // Initialize _pages inside initState to avoid null value errors
     _pages = [
       {
         'page': CategoriesScreen(),
@@ -27,7 +32,6 @@ class _TabsScreenState extends State<TabsScreen> {
         'title': 'Your Favourite',
       },
     ];
-    super.initState();
   }
 
   void _selectPage(int index) {
@@ -40,26 +44,31 @@ class _TabsScreenState extends State<TabsScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text(_pages[_selectedPageIndex]['title']),
+        title: Text(
+            _pages[_selectedPageIndex]['title'] as String), // Cast to String
       ),
       drawer: MainDrawer(),
-      body: _pages[_selectedPageIndex]['page'],
+      body: _pages[_selectedPageIndex]['page'] as Widget, // Cast to Widget
       bottomNavigationBar: BottomNavigationBar(
         onTap: _selectPage,
         backgroundColor: Theme.of(context).primaryColor,
         unselectedItemColor: Colors.white,
-        selectedItemColor: Theme.of(context).accentColor,
+        selectedItemColor: Theme.of(context)
+            .colorScheme
+            .secondary, // Replace 'accentColor' with 'colorScheme.secondary'
         currentIndex: _selectedPageIndex,
         type: BottomNavigationBarType.shifting,
         items: [
           BottomNavigationBarItem(
-              backgroundColor: Theme.of(context).primaryColor,
-              icon: Icon(Icons.category),
-              title: Text('Categories')),
+            backgroundColor: Theme.of(context).primaryColor,
+            icon: Icon(Icons.category),
+            label: 'Categories', // Use 'label' instead of 'title'
+          ),
           BottomNavigationBarItem(
-              backgroundColor: Theme.of(context).primaryColor,
-              icon: Icon(Icons.star),
-              title: Text('Favorites')),
+            backgroundColor: Theme.of(context).primaryColor,
+            icon: Icon(Icons.star),
+            label: 'Favorites', // Use 'label' instead of 'title'
+          ),
         ],
       ),
     );
